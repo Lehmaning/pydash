@@ -756,32 +756,54 @@ def conjoin(*funcs: t.Callable[[T], t.Any]) -> t.Callable[[t.Iterable[T]], bool]
 
 
 @t.overload
-def curry(func: t.Callable[[T1], T], arity: t.Union[int, None] = None) -> CurryOne[T1, T]: ...
+def curry(func: t.Callable[[T1], T], arity: None = None) -> CurryOne[T1, T]: ...
 
 
 @t.overload
 def curry(
-    func: t.Callable[[T1, T2], T], arity: t.Union[int, None] = None
+    func: t.Callable[[T1, T2], T], arity: None = None
 ) -> CurryTwo[T1, T2, T]: ...
 
 
 @t.overload
 def curry(
-    func: t.Callable[[T1, T2, T3], T], arity: t.Union[int, None] = None
+    func: t.Callable[[T1, T2, T3], T], arity: None = None
 ) -> CurryThree[T1, T2, T3, T]: ...
 
 
 @t.overload
 def curry(
-    func: t.Callable[[T1, T2, T3, T4], T], arity: t.Union[int, None] = None
+    func: t.Callable[[T1, T2, T3, T4], T], arity: None = None
 ) -> CurryFour[T1, T2, T3, T4, T]: ...
 
 
 @t.overload
 def curry(
-    func: t.Callable[[T1, T2, T3, T4, T5], T], arity: t.Union[int, None] = None
+    func: t.Callable[[T1, T2, T3, T4, T5], T], arity: None = None
 ) -> CurryFive[T1, T2, T3, T4, T5, T]: ...
 
+@t.overload
+def curry(func: t.Callable[t.Concatenate[T1, P], T], arity: Literal[1] = 1) -> CurryOne[T1, T]: ...
+
+
+@t.overload
+def curry(func: t.Callable[t.Concatenate[T1, T2, P], T], arity: Literal[2] = 2) -> CurryTwo[T1, T2, T]: ...
+
+
+@t.overload
+def curry(func: t.Callable[t.Concatenate[T1, T2, T3, P], T], arity: Literal[3] = 3) -> CurryThree[T1, T2, T3, T]: ...
+
+
+@t.overload
+def curry(
+    func: t.Callable[t.Concatenate[T1, T2, T3, T4, P], T], arity: Literal[4] = 4
+) -> CurryFour[T1, T2, T3, T4, T]: ...
+
+
+@t.overload
+def curry(
+    func: t.Callable[t.Concatenate[T1, T2, T3, T4, T5, P], T], arity: Literal[5] = 5
+) -> CurryFive[T1, T2, T3, T4, T5, T]: ...
 
 def curry(func, arity=None):
     """
@@ -816,25 +838,25 @@ def curry(func, arity=None):
 
 @t.overload
 def curry_right(
-    func: t.Callable[[T1], T], arity: t.Union[int, None] = None
+    func: t.Callable[[T1], T], arity: None = None
 ) -> CurryRightOne[T1, T]: ...
 
 
 @t.overload
 def curry_right(
-    func: t.Callable[[T1, T2], T], arity: t.Union[int, None] = None
+    func: t.Callable[[T1, T2], T], arity: None = None
 ) -> CurryRightTwo[T2, T1, T]: ...
 
 
 @t.overload
 def curry_right(
-    func: t.Callable[[T1, T2, T3], T], arity: t.Union[int, None] = None
+    func: t.Callable[[T1, T2, T3], T], arity: None = None
 ) -> CurryRightThree[T3, T2, T1, T]: ...
 
 
 @t.overload
 def curry_right(
-    func: t.Callable[[T1, T2, T3, T4], T], arity: t.Union[int, None] = None
+    func: t.Callable[[T1, T2, T3, T4], T], arity: None = None
 ) -> CurryRightFour[T4, T3, T2, T1, T]: ...
 
 
@@ -843,6 +865,32 @@ def curry_right(
     func: t.Callable[[T1, T2, T3, T4, T5], T],
 ) -> CurryRightFive[T5, T4, T3, T2, T1, T]: ...
 
+@t.overload
+def curry_right(func: t.Callable[t.Concatenate[T1, P], T], arity: Literal[1]) -> CurryRightOne[T1, T]: ...
+
+
+@t.overload
+def curry_right(
+    func: t.Callable[t.Concatenate[T1, T2, P], T], arity: Literal[2]
+) -> CurryRightTwo[T2, T1, T]: ...
+
+
+@t.overload
+def curry_right(
+    func: t.Callable[t.Concatenate[T1, T2, T3, P], T], arity: Literal[3]
+) -> CurryRightThree[T3, T2, T1, T]: ...
+
+
+@t.overload
+def curry_right(
+    func: t.Callable[t.Concatenate[T1, T2, T3, T4, P], T], arity: Literal[4]
+) -> CurryRightFour[T4, T3, T2, T1, T]: ...
+
+
+@t.overload
+def curry_right(
+    func: t.Callable[t.Concatenate[T1, T2, T3, T4, T5, P], T], arity: Literal[5]
+) -> CurryRightFive[T5, T4, T3, T2, T1, T]: ...
 
 def curry_right(func, arity=None):
     """
